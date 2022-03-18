@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+Desafio Final Formação Front-End
+Criar um sistema de adoção de pets. Nesse sistema é possível listar, cadastrar, deletar, editar e adotar pets. Para realizar as ações de admin é preciso estar logado no sistema. O sistema consiste em uma página inicial e uma dashboard.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Figma - https://www.figma.com/file/AFKBizK1godlg7RCbUqQ8r/Otterwise?node-id=77%3A239
 
-## Available Scripts
+Página inicial:
+Consiste em uma barra de navegação, um cabeçalho, uma galeria com os pets, um formulário de contato e um rodapé.
+A barra de navegação possui três itens: Login, Galeria e Contato.
+Ao clicar em Login, deve aparecer um modal na tela com os campos de email e senha para que uma pessoa admin consiga logar e gerenciar os dados.
+Ao clicar em Galeria, uma rolagem automática para a área de galeria deve acontecer.
+Ao clicar em Contato, uma rolagem automática para a área de contato deve acontecer.
+A galeria deve conter uma listagem de pets que é uma informação fornecida pela API em uma rota aberta e cada card de pet tem um botão de adotar, onde, ao clicar, o campo Mensagem do formulário de contato deve ser preenchido com "Oi, quero muito adotar o(a) [nome_do_pet]!" e realizar a rolagem da página para o formulário de contato.
+O formulário de contato deve ser enviado para o servidor via chamada na API.
 
-In the project directory, you can run:
+Dashboard
+É uma página autenticada, onde só pessoas admin podem acessar.
+A página contém dois contadores, uma tabela de pets cadastrados e dois botões ('Entrada de Pet' e 'Sair').
+Os contadores mostram quantos pets cadastrados e quantos adotados o sistema possui (e devem ser atualizados quando um novo pet for cadastrado ou adotado).
+A tabela mostra as informações do pet e possui uma coluna de Ações com ícones onde é possível adotar, editar e excluir o pet.
+Ao clicar no ícone de adoção, um modal de confirmação deve ser exibido com as opções Sim e Não.
+Ao clicar no ícone de editar, um modal com o formulário e os campos preenchidos, possibilitando a alteração deles e no final dois botões: Salvar e Cancelar.
+Ao clicar no ícone de exclusão, um modal de confirmação deve ser exibido com as opções Sim e Não.
 
-### `npm start`
+Geral
+As interações do usuário devem ter feedback visual (Envio do contato, Login, Sair, Cadastro, Exclusão, Adoção, etc.)
+As rotas da API estão documentadas em uma coleção no Postman.
+https://www.getpostman.com/collections/d3ee09d56bbc97512742
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Link API - http://otterwise-fake-api.herokuapp.com/
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Opções para o select espécie: Gato, Cachorro.
 
-### `npm test`
+** UTILIZANDO A FAKE API **
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+POST - http://otterwise-fake-api.herokuapp.com/pets/<apiCode>/
 
-### `npm run build`
+GET LIST - http://otterwise-fake-api.herokuapp.com/pets/<apiCode>/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+GET PET - http://otterwise-fake-api.herokuapp.com/pets/<apiCode>/<petId>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+PUT- http://otterwise-fake-api.herokuapp.com/pets/<apiCode>/<petId>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+DELETE - http://otterwise-fake-api.herokuapp.com/pets/<apiCode>/<petId>
