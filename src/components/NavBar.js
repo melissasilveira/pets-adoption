@@ -7,9 +7,15 @@ function NavBar() {
         <img src="/images/brand-logo (1).png" alt="logo" />
         <nav>
           <ul>
-            <li>Login</li>
-            <li>Galeria</li>
-            <li>Contato</li>
+            <li>
+              <a href="#login">LOGIN</a>
+            </li>
+            <li>
+              <a href="#pet-gallery">GALERIA</a>
+            </li>
+            <li>
+              <a href="#contact">CONTATO</a>
+            </li>
           </ul>
         </nav>
       </div>
