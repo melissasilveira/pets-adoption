@@ -28,6 +28,9 @@ https://www.getpostman.com/collections/d3ee09d56bbc97512742
 
 Link API - http://otterwise-fake-api.herokuapp.com/
 
+email: melissaasilveira@gmail.com
+senha: 12345
+
 Opções para o select espécie: Gato, Cachorro.
 
 ** UTILIZANDO A FAKE API **

@@ -25,5 +25,5 @@ export const registerSchema = yup.object().shape({
   name: yup.string().required().min(3, 'Nome deve ter no mínimo 3 caracteres.'),
   breed: yup.string().required(),
   age: yup.number().required(),
-  URL: yup.string().required(),
+  url: yup.string().required(),
 })

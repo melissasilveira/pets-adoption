@@ -1,5 +1,6 @@
+import React, { useState, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Card,
   CardContent,
@@ -20,14 +21,40 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  FormControl,
+  IconButton,
 } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
 import { yupResolver } from '@hookform/resolvers/yup'
 
+import useAuth from '../contexts/AuthContext'
 import { registerSchema } from '../schemas/auth'
+import { getPetList, postPet } from '../services/pets'
 
 function Dashboard() {
   const [open, setOpen] = useState(false)
+  const [pets, setPets] = useState([])
+
+  useEffect(() => {
+    const fetchPets = async () => {
+      try {
+        const { data } = await getPetList()
+        setPets(data.pets)
+      } catch {
+        console.log('Ocorreu um erro ao buscar a lista de pets')
+      }
+    }
+    fetchPets()
+  }, [])
+
+  const navigate = useNavigate()
+
+  const { logout } = useAuth()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+  }
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -46,12 +73,23 @@ function Dashboard() {
     resolver: yupResolver(registerSchema),
   })
 
+  const handleRegister = async (data) => {
+    try {
+      console.log(data)
+      await postPet(data)
+      handleClose()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <Container>
       <div id="total-pets">
         <Card>
           <CardContent>
             <Typography>Total de Pets</Typography>
+            <Typography>{pets.length}</Typography>
           </CardContent>
         </Card>
       </div>
@@ -75,16 +113,38 @@ function Dashboard() {
               <TableCell>Ações</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody></TableBody>
+          <TableBody>
+            {pets.map((row) => (
+              <TableRow key={row.petId}>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.breed}</TableCell>
+                <TableCell>{row.age}</TableCell>
+                <TableCell>{row.species}</TableCell>
+                <TableCell>{row.gender}</TableCell>
+                <TableCell>{row.adopted}</TableCell>
+                <TableCell>
+                  <IconButton aria-label="adopt-pet">
+                    <img src="/images/donate-icon.png" alt="adopt-icon" />
+                  </IconButton>
+                  <IconButton aria-label="edit-pet">
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton aria-label="delete-pet">
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
       <Button variant="outlined" onClick={handleClickOpen}>
         ENTRADA DE PET
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Cadastro de novo pet</DialogTitle>
-        <DialogContent>
-          <form onSubmit={handleSubmit(handleClose)}>
+        <form onSubmit={handleSubmit(handleRegister)}>
+          <DialogTitle>Cadastro de novo pet</DialogTitle>
+          <DialogContent>
             <Controller
               name="name"
               control={control}
@@ -123,6 +183,7 @@ function Dashboard() {
               defaultValue=""
               render={({ field }) => (
                 <TextField
+                  inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                   margin="dense"
                   variant="outlined"
                   label="Idade"
@@ -133,27 +194,48 @@ function Dashboard() {
                 />
               )}
             />
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="species-label">Espécie</InputLabel>
-              <Select
-                labelId="species-label"
-                id="species"
-                value={''}
-                label="Espécie"
-              >
-                <MenuItem value={'Gato'}>Gato</MenuItem>
-                <MenuItem value={'Cachorro'}>Cachorro</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="sex-label">Sexo</InputLabel>
-              <Select labelId="sex-label" id="sex" value={''} label="Sexo">
-                <MenuItem value={'Feminino'}>Feminino</MenuItem>
-                <MenuItem value={'Masculino'}>Masculino</MenuItem>
-              </Select>
-            </FormControl>
             <Controller
-              name="URL"
+              name="species"
+              label="Espécie"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <React.Fragment>
+                  <InputLabel id="species-label">Espécie</InputLabel>
+                  <Select
+                    labelId="species-label"
+                    id="species"
+                    label="Espécie"
+                    {...field}
+                  >
+                    <MenuItem value={'cachorro'}>Cachorro</MenuItem>
+                    <MenuItem value={'gato'}>Gato</MenuItem>
+                  </Select>
+                </React.Fragment>
+              )}
+            />
+            <Controller
+              name="gender"
+              label="Sexo"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <React.Fragment>
+                  <InputLabel id="gender-label">Sexo</InputLabel>
+                  <Select
+                    labelId="gender-label"
+                    id="gender"
+                    label="Sexo"
+                    {...field}
+                  >
+                    <MenuItem value={'Fêmea'}>Fêmea</MenuItem>
+                    <MenuItem value={'Macho'}>Macho</MenuItem>
+                  </Select>
+                </React.Fragment>
+              )}
+            />
+            <Controller
+              name="url"
               control={control}
               defaultValue=""
               render={({ field }) => (
@@ -168,21 +250,14 @@ function Dashboard() {
                 />
               )}
             />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>CADASTRAR</Button>
-          <Button onClick={handleClose}>CANCELAR</Button>
-        </DialogActions>
+          </DialogContent>
+          <DialogActions>
+            <Button type="submit">CADASTRAR</Button>
+            <Button onClick={handleClose}>CANCELAR</Button>
+          </DialogActions>
+        </form>
       </Dialog>
-      <Button
-        type="button"
-        variant="contained"
-        color="primary"
-        style={{ marginTop: '10px' }}
-      >
-        SAIR
-      </Button>
+      <Button onClick={handleLogout}>SAIR</Button>
     </Container>
   )
 }

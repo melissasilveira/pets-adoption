@@ -2,16 +2,28 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Dashboard from './routes/Dashboard'
 import Home from './routes/Home'
-import Login from './components/Login'
+import PrivateRoute from './components/PrivateRoute'
+import { Provider } from './contexts/AuthContext'
+import { ToastContainer } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   return (
-    <React.Fragment>
+    <Provider>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
       </Routes>
-    </React.Fragment>
+    </Provider>
   )
 }
 
