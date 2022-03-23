@@ -3,7 +3,10 @@ import { signin } from '../services/pets'
 
 export const AuthContext = createContext()
 export const Provider = (props) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const userLocalStorage = JSON.parse(localStorage.getItem('user'))
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    userLocalStorage ? true : false
+  )
 
   const login = async (email, password) => {
     const { data } = await signin({ email, password })
