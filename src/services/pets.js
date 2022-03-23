@@ -10,18 +10,18 @@ export const getPetList = () => {
   return client.get(`/pets/${apiCode}`)
 }
 
-export const getPet = (petId) => {
-  return client.get(`/pets/${apiCode}/${petId}`)
+export const getPet = (id) => {
+  return client.get(`/pets/${apiCode}/${id}`)
 }
 
-export const editPet = (petId, body) => {
-  return client.put(`/pets/${apiCode}/${petId}`, body)
+export const editPet = (id, body) => {
+  return client.put(`/pets/${apiCode}/${id}`, body)
 }
 
 export const postPet = (data) => {
   return client.post(`/pets/${apiCode}`, data)
 }
 
-export const deletePet = (petId) => {
-  return client.delete(`/pets/${apiCode}/${petId}`)
+export const deletePet = (id) => {
+  return client.delete(`/pets/${apiCode}/${id}`)
 }
