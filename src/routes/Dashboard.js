@@ -12,7 +12,6 @@ import {
   TableRow,
   Container,
   Button,
-  IconButton,
   CircularProgress,
   Box,
 } from '@mui/material'
@@ -21,6 +20,7 @@ import useAuth from '../contexts/AuthContext'
 import { getPetList } from '../services/pets'
 import DeleteAlertDialog from '../components/DeleteAlertDialog'
 import CreateOrUpdatePet from '../components/CreateOrUpdatePet'
+import AdoptionAlertDialog from '../components/AdoptionAlertDialog'
 
 function Dashboard() {
   const [pets, setPets] = useState([])
@@ -102,9 +102,7 @@ function Dashboard() {
                   <TableCell>{row.gender}</TableCell>
                   <TableCell>{row.adopted ? 'Sim' : 'Não'}</TableCell>
                   <TableCell>
-                    <IconButton aria-label="adopt-pet">
-                      <img src="/images/donate-icon.png" alt="adopt-icon" />
-                    </IconButton>
+                    <AdoptionAlertDialog id={row.id} />
                     <CreateOrUpdatePet id={row.id} shouldRefetch={reload} />
                     <DeleteAlertDialog id={row.id} shouldRefetch={reload} />
                   </TableCell>

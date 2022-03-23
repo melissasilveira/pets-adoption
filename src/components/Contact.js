@@ -5,7 +5,7 @@ import { TextField, Button } from '@mui/material'
 
 import { contactSchema } from '../schemas/auth'
 
-function Contact() {
+function Contact(props) {
   const {
     control,
     handleSubmit,
@@ -17,6 +17,15 @@ function Contact() {
 
   const handleContact = () => {
     console.log(handleContact)
+  }
+
+  //ainda não está funcionando
+  const adoptPet = () => {
+    if (props.petName) {
+      setValue('message', `Oi, quero muito adotar o(a) ${props.petName}!`, {
+        shouldValidate: true,
+      })
+    }
   }
 
   return (
