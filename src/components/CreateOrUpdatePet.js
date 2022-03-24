@@ -72,13 +72,14 @@ function CreateOrUpdatePet(props) {
 
   const handleUpdate = async (body) => {
     try {
-      await editPet(id, body)
+      await editPet(id, { ...body, adopted: false })
       handleClose()
       toast.success('Pet editado com sucesso.', {
         position: toast.POSITION.TOP_CENTER,
       })
       props.shouldRefetch()
     } catch (error) {
+      toast.error('Ocorreu um erro ao tentar editar o pet.')
       console.log(error)
     }
   }

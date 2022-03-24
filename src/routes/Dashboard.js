@@ -18,9 +18,9 @@ import {
 
 import useAuth from '../contexts/AuthContext'
 import { getPetList } from '../services/pets'
-import DeleteAlertDialog from '../components/DeleteAlertDialog'
+import DeletePet from '../components/DeletePet'
 import CreateOrUpdatePet from '../components/CreateOrUpdatePet'
-import AdoptionAlertDialog from '../components/AdoptionAlertDialog'
+import AdoptPet from '../components/AdoptPet'
 
 function Dashboard() {
   const [pets, setPets] = useState([])
@@ -55,6 +55,10 @@ function Dashboard() {
     navigate('/')
   }
 
+  const petsAdopted = pets.filter((elem) => {
+    return elem.adopted
+  })
+
   if (isLoading) {
     return (
       <Box>
@@ -76,6 +80,7 @@ function Dashboard() {
           <Card>
             <CardContent>
               <Typography>Total de Pets Adotados</Typography>
+              <Typography>{petsAdopted.length}</Typography>
             </CardContent>
           </Card>
         </div>
@@ -93,18 +98,18 @@ function Dashboard() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {pets.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.breed}</TableCell>
-                  <TableCell>{row.age}</TableCell>
-                  <TableCell>{row.species}</TableCell>
-                  <TableCell>{row.gender}</TableCell>
-                  <TableCell>{row.adopted ? 'Sim' : 'Não'}</TableCell>
+              {pets.map((pet) => (
+                <TableRow key={pet.id}>
+                  <TableCell>{pet.name}</TableCell>
+                  <TableCell>{pet.breed}</TableCell>
+                  <TableCell>{pet.age}</TableCell>
+                  <TableCell>{pet.species}</TableCell>
+                  <TableCell>{pet.gender}</TableCell>
+                  <TableCell>{pet.adopted ? 'Sim' : 'Não'}</TableCell>
                   <TableCell>
-                    <AdoptionAlertDialog id={row.id} />
-                    <CreateOrUpdatePet id={row.id} shouldRefetch={reload} />
-                    <DeleteAlertDialog id={row.id} shouldRefetch={reload} />
+                    <AdoptPet pet={pet} shouldRefetch={reload} />
+                    <CreateOrUpdatePet id={pet.id} shouldRefetch={reload} />
+                    <DeletePet id={pet.id} shouldRefetch={reload} />
                   </TableCell>
                 </TableRow>
               ))}

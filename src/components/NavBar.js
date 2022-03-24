@@ -52,6 +52,7 @@ function NavBar() {
     <React.Fragment>
       <div>
         <img src="/images/brand-logo (1).png" alt="logo" />
+        <img src="/images/Hamburguer-close.png" alt="hamburger-close" />
         <nav>
           <ul>
             <li>

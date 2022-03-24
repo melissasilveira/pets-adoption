@@ -1,30 +1,41 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { TextField, Button } from '@mui/material'
+import { toast } from 'react-toastify'
 
 import { contactSchema } from '../schemas/auth'
+import { contactForm } from '../services/pets'
 
 function Contact(props) {
+  useEffect(() => {
+    if (props.petName) {
+      setValue('message', `Oi, quero muito adotar o(a) ${props.petName}!`, {
+        shouldValidate: true,
+      })
+    }
+  }, [props.petName])
+
   const {
     control,
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
   } = useForm({
     resolver: yupResolver(contactSchema),
   })
 
-  const handleContact = () => {
-    console.log(handleContact)
-  }
-
-  //ainda não está funcionando
-  const adoptPet = () => {
-    if (props.petName) {
-      setValue('message', `Oi, quero muito adotar o(a) ${props.petName}!`, {
-        shouldValidate: true,
+  const handleContact = async (data) => {
+    try {
+      await contactForm(data)
+      toast.success('Mensagem enviada com sucesso.', {
+        position: toast.POSITION.TOP_CENTER,
       })
+      reset()
+    } catch (error) {
+      toast.error('Ocorreu um problema ao enviar a mensagem.')
+      console.log(error)
     }
   }
 

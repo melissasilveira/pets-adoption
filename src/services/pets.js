@@ -25,3 +25,7 @@ export const postPet = (data) => {
 export const deletePet = (id) => {
   return client.delete(`/pets/${apiCode}/${id}`)
 }
+
+export const contactForm = (data) => {
+  return client.post('/contact/', data)
+}

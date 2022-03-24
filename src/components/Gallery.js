@@ -24,6 +24,8 @@ function Gallery(props) {
 
   const adoptPet = (name) => {
     props.setPetName(name)
+    const scrollForm = document.getElementById('contact')
+    scrollForm.scrollIntoView()
   }
 
   return (

@@ -10,7 +10,7 @@ import { toast } from 'react-toastify'
 
 import { deletePet } from '../services/pets'
 
-function DeleteAlertDialog(props) {
+function DeletePet(props) {
   const [open, setOpen] = useState(false)
   const handleClickOpen = () => {
     setOpen(true)
@@ -23,6 +23,9 @@ function DeleteAlertDialog(props) {
   const handleDelete = async () => {
     try {
       await deletePet(props.id)
+      toast.success('Pet deletado com sucesso.', {
+        position: toast.POSITION.TOP_CENTER,
+      })
       setOpen(false)
       props.shouldRefetch()
     } catch (error) {
@@ -57,4 +60,4 @@ function DeleteAlertDialog(props) {
   )
 }
 
-export default DeleteAlertDialog
+export default DeletePet
