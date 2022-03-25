@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import NavBar from '../components/NavBar'
-import Header from '../components/Header'
+import Main from '../components/Main'
 import Gallery from '../components/Gallery'
 import Contact from '../components/Contact'
 
@@ -11,7 +11,7 @@ function Home() {
     <React.Fragment>
       <main>
         <NavBar />
-        <Header />
+        <Main />
         <Gallery setPetName={setPetName} />
         <Contact petName={petName} />
       </main>

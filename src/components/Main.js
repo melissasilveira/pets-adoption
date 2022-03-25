@@ -1,13 +1,14 @@
+import styled from '@emotion/styled'
 import React from 'react'
 
-function Header() {
+function Main() {
   return (
-    <React.Fragment>
-      <div>
-        <img src="/images/background.png" alt="dogs" />
-        <h1>Adote e salve uma vida</h1>
-        <h3>Um gesto de carinho que pode salvar vidas.</h3>
-      </div>
+    <StyledContainer>
+      <StyledHeader>
+        <DogsBackground src="/images/background.png" alt="dogs" />
+        <Title>Adote e salve uma vida</Title>
+        <Subtitle>Um gesto de carinho que pode salvar vidas.</Subtitle>
+      </StyledHeader>
       <div>
         <h3>Por que adotar?</h3>
         <p>
@@ -40,8 +41,41 @@ function Header() {
           a melhor companhia que poderia querer em todos os momentos!
         </p>
       </div>
-    </React.Fragment>
+    </StyledContainer>
   )
 }
 
-export default Header
+const DogsBackground = styled.img`
+  display: none;
+`
+const StyledContainer = styled.div`
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+`
+const StyledHeader = styled.div`
+  height: 229px;
+  background: #040404;
+`
+const Title = styled.h1`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 150%;
+  text-align: center;
+  color: #e6bc7e;
+  margin: 20px 60px;
+  margin-bottom: 5px;
+`
+const Subtitle = styled.h3`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 117%;
+  text-align: center;
+  color: #bf9d69;
+  border: 1px solid #040404;
+  margin: 0px 60px;
+`
+
+export default Main

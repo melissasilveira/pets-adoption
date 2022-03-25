@@ -10,6 +10,7 @@ import {
   DialogActions,
 } from '@mui/material'
 import { toast } from 'react-toastify'
+import styled from '@emotion/styled'
 
 import useAuth from '../contexts/AuthContext'
 import { loginSchema } from '../schemas/auth'
@@ -49,24 +50,24 @@ function NavBar() {
   }
 
   return (
-    <React.Fragment>
-      <div>
-        <img src="/images/brand-logo (1).png" alt="logo" />
-        <img src="/images/Hamburguer-close.png" alt="hamburger-close" />
-        <nav>
-          <ul>
-            <li>
-              <button onClick={handleClickOpen}>LOGIN</button>
-            </li>
-            <li>
-              <a href="#pet-gallery">GALERIA</a>
-            </li>
-            <li>
-              <a href="#contact">CONTATO</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+    <NavBarBox>
+      <StyledDiv>
+        <img src="/images/brand-logo (1).png" alt="logo" height="53px" />
+        <img src="/images/Hamburguer.png" alt="hamburger-menu" height="29px" />
+      </StyledDiv>
+      <StyledNav>
+        <ul>
+          <li>
+            <button onClick={handleClickOpen}>LOGIN</button>
+          </li>
+          <li>
+            <a href="#pet-gallery">GALERIA</a>
+          </li>
+          <li>
+            <a href="#contact">CONTATO</a>
+          </li>
+        </ul>
+      </StyledNav>
       <Dialog open={open} onClose={handleClose}>
         <form onSubmit={handleSubmit(handleLogin)}>
           <DialogContent>
@@ -109,8 +110,25 @@ function NavBar() {
           </DialogActions>
         </form>
       </Dialog>
-    </React.Fragment>
+    </NavBarBox>
   )
 }
 
+const NavBarBox = styled.div`
+  background: #040404;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+const StyledDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 75px;
+  margin: 0px 30px;
+`
+
+const StyledNav = styled.nav`
+  display: none;
+`
 export default NavBar
