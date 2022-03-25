@@ -9,9 +9,10 @@ function Main() {
         <Title>Adote e salve uma vida</Title>
         <Subtitle>Um gesto de carinho que pode salvar vidas.</Subtitle>
       </StyledHeader>
-      <div>
-        <h3>Por que adotar?</h3>
-        <p>
+      <StyledDiv>
+        <StyledH3>Por que adotar?</StyledH3>
+        <StyledH4>Adoção salva a vida de um animal</StyledH4>
+        <Paragraph>
           Adoção salva a vida de um animal Adotar um animal é uma grande
           responsabilidade, e não é só porque você precisará cuidar dele em
           casa. A adoção é capaz de salvar a vida de um bichinho que poderia
@@ -22,25 +23,28 @@ function Main() {
           Além de levar um novo companheiro para a casa, você está salvando a
           vida de um grande amigo e dando a ele a oportunidade de receber amor
           em um lar seguro.
-        </p>
-        <h3>3 Motivos para adotar</h3>
-        <h5>1 - Não vai faltar amor</h5>
-        <p>
+        </Paragraph>
+        <Footnote>Fonte: https://www.casapraticaqualita.com.br/</Footnote>
+      </StyledDiv>
+      <StyledDiv>
+        <StyledH3>3 Motivos para adotar</StyledH3>
+        <StyledH5>1 - Não vai faltar amor</StyledH5>
+        <Paragraph>
           Acredite: adotar um animalzinho muda completamente a vida de alguém. E
           o amor que eles nos dão é tão grande que fica até difícil retribuir à
           altura!
-        </p>
-        <h5>2 - Diminui o estresse</h5>
-        <p>
+        </Paragraph>
+        <StyledH5>2 - Diminui o estresse</StyledH5>
+        <Paragraph>
           Você sabia que adotar um animalzinho ajuda a diminuir o estresse? Sim!
           Até nisso eles contribuem.
-        </p>
-        <h5>3 - A melhor companhia</h5>
-        <p>
+        </Paragraph>
+        <StyledH5>3 - A melhor companhia</StyledH5>
+        <Paragraph>
           Adotar um cachorro vai deixá-lo eternamente grato a você. Você vai ter
           a melhor companhia que poderia querer em todos os momentos!
-        </p>
-      </div>
+        </Paragraph>
+      </StyledDiv>
     </StyledContainer>
   )
 }
@@ -76,6 +80,56 @@ const Subtitle = styled.h3`
   color: #bf9d69;
   border: 1px solid #040404;
   margin: 0px 60px;
+`
+const StyledH4 = styled.h4`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: justify;
+  padding: 1px 4px;
+  color: #e6bc7e;
+`
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px;
+`
+const StyledH3 = styled.h3`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  color: #bf9d69;
+  padding: 2px 4px;
+`
+const Paragraph = styled.p`
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: justify;
+  padding: 2px 4px;
+  color: #403423;
+`
+const Footnote = styled.p`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 9px;
+  line-height: 11px;
+  text-align: justify;
+  padding: 0px 4px;
+  color: #e6bc7e;
+`
+const StyledH5 = styled.h5`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: justify;
+  padding: 2px 4px;
+  color: #e6bc7e;
 `
 
 export default Main
