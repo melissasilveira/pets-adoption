@@ -71,7 +71,7 @@ function Gallery(props) {
 const PetGallery = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: 30px 5px;
   background: #e6bc7e;
 `
 
@@ -88,8 +88,9 @@ const Paragraph = styled.p`
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
-  line-height: 9px;
+  line-height: 13px;
   text-align: center;
+  padding: 5px 15px;
   color: #403423;
 `
 
@@ -99,7 +100,7 @@ const PetCards = styled.div`
   justify-content: space-evenly;
   align-items: center;
   align-content: space-between;
-  padding: 20px;
+  padding: 20px 0px;
 `
 
 const PetImg = styled.img`
