@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 
 import { contactSchema } from '../schemas/auth'
 import { contactForm } from '../services/pets'
+import styled from '@emotion/styled'
 
 function Contact(props) {
   useEffect(() => {
@@ -40,14 +41,14 @@ function Contact(props) {
   }
 
   return (
-    <div id="contact">
-      <form onSubmit={handleSubmit(handleContact)}>
+    <ContactBox id="contact">
+      <Form onSubmit={handleSubmit(handleContact)}>
         <Controller
           name="name"
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <TextField
+            <StyledTextField
               margin="dense"
               variant="outlined"
               label="Nome Completo"
@@ -63,7 +64,7 @@ function Contact(props) {
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <TextField
+            <StyledTextField
               margin="dense"
               variant="outlined"
               label="E-mail"
@@ -79,7 +80,7 @@ function Contact(props) {
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <TextField
+            <StyledTextField
               margin="dense"
               variant="outlined"
               label="Telefone"
@@ -95,7 +96,7 @@ function Contact(props) {
           control={control}
           defaultValue=""
           render={({ field }) => (
-            <TextField
+            <StyledTextField
               id="outlined-multiline-flexible"
               margin="dense"
               multiline
@@ -116,9 +117,41 @@ function Contact(props) {
         >
           {'Enviar'}
         </Button>
-      </form>
-    </div>
+      </Form>
+    </ContactBox>
   )
 }
 
+const ContactBox = styled.div`
+  background: #403423;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 15px;
+`
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: stretch;
+  justify-content: flex-start;
+  text-align: justify;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  color: #403423;
+  width: 330px;
+  height: 427px;
+  left: 15px;
+  top: 35px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 25px;
+  padding-top: 40px;
+  gap: 10px;
+`
+const StyledTextField = styled(TextField)`
+  background: #ffffff;
+`
 export default Contact
