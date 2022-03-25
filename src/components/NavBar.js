@@ -49,16 +49,46 @@ function NavBar() {
     }
   }
 
+  const handleMenuOpen = () => {
+    let menuOpen = document.getElementById('menu-mobile')
+    menuOpen.style.display = 'block'
+    let burgerMenu = document.getElementById('burger-menu')
+    burgerMenu.style.display = 'none'
+    let burgerClose = document.getElementById('burger-close')
+    burgerClose.style.display = 'block'
+  }
+
+  const handleMenuClose = () => {
+    let menuClose = document.getElementById('menu-mobile')
+    menuClose.style.display = 'none'
+    let burgerMenu = document.getElementById('burger-menu')
+    burgerMenu.style.display = 'block'
+    let burgerClose = document.getElementById('burger-close')
+    burgerClose.style.display = 'none'
+  }
+
   return (
     <NavBarBox>
       <StyledDiv>
         <img src="/images/brand-logo (1).png" alt="logo" height="53px" />
-        <img src="/images/Hamburguer.png" alt="hamburger-menu" height="29px" />
+        <img
+          src="/images/Hamburguer.png"
+          alt="hamburger-menu"
+          id="burger-menu"
+          height="29px"
+          onClick={handleMenuOpen}
+        />
+        <img
+          src="/images/Hamburguer-close.png"
+          alt="burger close"
+          id="burger-close"
+          onClick={handleMenuClose}
+        />
       </StyledDiv>
-      <StyledNav>
-        <ul>
+      <StyledNav id="menu-mobile">
+        <StyledUl>
           <li>
-            <button onClick={handleClickOpen}>LOGIN</button>
+            <StyledButtonLink onClick={handleClickOpen}>LOGIN</StyledButtonLink>
           </li>
           <li>
             <a href="#pet-gallery">GALERIA</a>
@@ -66,12 +96,19 @@ function NavBar() {
           <li>
             <a href="#contact">CONTATO</a>
           </li>
-        </ul>
+        </StyledUl>
       </StyledNav>
       <Dialog open={open} onClose={handleClose}>
         <form onSubmit={handleSubmit(handleLogin)}>
-          <DialogContent>
-            <img src="/images/brand-logo (1).png" alt="logo" />
+          <DialogContent
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <img src="/images/brand-logo (1).png" alt="logo" width="102px" />
             <Controller
               name="email"
               control={control}
@@ -106,7 +143,12 @@ function NavBar() {
             />
           </DialogContent>
           <DialogActions>
-            <Button type="submit">ENTRAR</Button>
+            <Button onClick={handleClose} variant="outlined">
+              CANCELAR
+            </Button>
+            <Button type="submit" variant="contained">
+              ENTRAR
+            </Button>
           </DialogActions>
         </form>
       </Dialog>
@@ -119,16 +161,57 @@ const NavBarBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  #burger-close {
+    display: none;
+  }
+
+  @media only screen and (min-width: 480px) {
+    #burger-menu {
+      display: none;
+    }
+  }
 `
+const StyledNav = styled.nav`
+  display: none;
+`
+const StyledUl = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 42px;
+  color: #ffd18d;
+  list-style: none;
+  padding-bottom: 80px;
+
+  li,
+  a {
+    display: inline-flex;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 42px;
+    color: #ffd18d;
+    padding: 20px;
+  }
+`
+const StyledButtonLink = styled.button`
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 42px;
+  color: #ffd18d;
+`
+
 const StyledDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 75px;
   margin: 0px 30px;
-`
-
-const StyledNav = styled.nav`
-  display: none;
 `
 export default NavBar

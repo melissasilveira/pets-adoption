@@ -91,7 +91,7 @@ function CreateOrUpdatePet(props) {
           <EditIcon />
         </IconButton>
       ) : (
-        <Button variant="outlined" onClick={handleClickOpen}>
+        <Button variant="contained" fullWidth onClick={handleClickOpen}>
           ENTRADA DE PET
         </Button>
       )}

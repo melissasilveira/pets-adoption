@@ -52,7 +52,7 @@ function Contact(props) {
               margin="dense"
               variant="outlined"
               label="Nome Completo"
-              color="secondary"
+              color="primary"
               error={Boolean(errors.name)}
               helperText={errors.name?.message}
               {...field}
@@ -68,7 +68,7 @@ function Contact(props) {
               margin="dense"
               variant="outlined"
               label="E-mail"
-              color="secondary"
+              color="primary"
               error={Boolean(errors.email)}
               helperText={errors.email?.message}
               {...field}
@@ -84,7 +84,7 @@ function Contact(props) {
               margin="dense"
               variant="outlined"
               label="Telefone"
-              color="secondary"
+              color="primary"
               error={Boolean(errors.phone)}
               helperText={errors.phone?.message}
               {...field}
@@ -102,7 +102,7 @@ function Contact(props) {
               multiline
               variant="outlined"
               label="Mensagem"
-              color="secondary"
+              color="primary"
               error={Boolean(errors.message)}
               helperText={errors.message?.message}
               {...field}
@@ -112,7 +112,7 @@ function Contact(props) {
         <Button
           type="submit"
           variant="contained"
-          color="secondary"
+          color="primary"
           style={{ marginTop: '10px' }}
         >
           {'Enviar'}
