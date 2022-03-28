@@ -126,8 +126,10 @@ const ContactBox = styled.div`
   background: #403423;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding: 40px 15px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 `
 const Form = styled.form`
   display: flex;
@@ -135,12 +137,6 @@ const Form = styled.form`
   align-content: center;
   align-items: stretch;
   justify-content: flex-start;
-  text-align: justify;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 14px;
-  color: #403423;
   width: 330px;
   height: 427px;
   left: 15px;
