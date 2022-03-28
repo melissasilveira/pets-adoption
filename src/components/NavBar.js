@@ -6,9 +6,12 @@ import {
   TextField,
   Button,
   Dialog,
+  DialogTitle,
   DialogContent,
   DialogActions,
 } from '@mui/material'
+import IconButton from '@mui/material/IconButton'
+import CloseIcon from '@mui/icons-material/Close'
 import { toast } from 'react-toastify'
 import styled from '@emotion/styled'
 
@@ -98,7 +101,21 @@ function NavBar() {
           </li>
         </StyledUl>
       </StyledNav>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open}>
+        <DialogTitle>
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
         <form onSubmit={handleSubmit(handleLogin)}>
           <DialogContent
             sx={{
@@ -119,6 +136,7 @@ function NavBar() {
                   variant="outlined"
                   s
                   label="Email"
+                  size="small"
                   error={Boolean(errors.email)}
                   helperText={errors.email?.message}
                   {...field}
@@ -135,6 +153,7 @@ function NavBar() {
                   margin="dense"
                   variant="outlined"
                   label="Senha"
+                  size="small"
                   error={Boolean(errors.password)}
                   helperText={errors.password?.message}
                   {...field}
@@ -143,9 +162,6 @@ function NavBar() {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} variant="outlined">
-              CANCELAR
-            </Button>
             <Button type="submit" variant="contained">
               ENTRAR
             </Button>
@@ -167,6 +183,9 @@ const NavBarBox = styled.div`
   }
 
   @media only screen and (min-width: 480px) {
+    flex-direction: row;
+    justify-content: space-between;
+
     #burger-menu {
       display: none;
     }
@@ -174,6 +193,10 @@ const NavBarBox = styled.div`
 `
 const StyledNav = styled.nav`
   display: none;
+
+  @media only screen and (min-width: 480px) {
+    display: flex;
+  }
 `
 const StyledUl = styled.ul`
   display: flex;
@@ -198,6 +221,19 @@ const StyledUl = styled.ul`
     color: #ffd18d;
     padding: 20px;
   }
+
+  @media only screen and (min-width: 480px) {
+    flex-direction: row;
+    padding: 5px 90px;
+
+    li,
+    a {
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 14px;
+      padding: 10px;
+    }
+  }
 `
 const StyledButtonLink = styled.button`
   font-style: normal;
@@ -205,6 +241,13 @@ const StyledButtonLink = styled.button`
   font-size: 36px;
   line-height: 42px;
   color: #ffd18d;
+
+  @media only screen and (min-width: 480px) {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    padding: 10px;
+  }
 `
 
 const StyledDiv = styled.div`
