@@ -7,6 +7,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  tableCellClasses,
   TableContainer,
   TableHead,
   TableRow,
@@ -62,9 +63,9 @@ function Dashboard() {
 
   if (isLoading) {
     return (
-      <Box>
+      <StyledBox>
         <CircularProgress />
-      </Box>
+      </StyledBox>
     )
   } else {
     return (
@@ -87,31 +88,41 @@ function Dashboard() {
           <Title>LISTA DE PET</Title>
           <StyledTable>
             <TableHead>
-              <TableRow>
-                <PetName>Nome</PetName>
-                <PetBreed>Raça</PetBreed>
-                <PetAge>Idade</PetAge>
-                <PetSpecies>Espécie</PetSpecies>
-                <PetGender>Sexo</PetGender>
-                <Adopted>Adotado(a)</Adopted>
-                <StyledTableCell>Ações</StyledTableCell>
-              </TableRow>
+              <StyledTableRow>
+                <StyledTableCell>Nome</StyledTableCell>
+                <StyledTableCell isHiddenOnMobile>Raça</StyledTableCell>
+                <StyledTableCell isHiddenOnMobile>Idade</StyledTableCell>
+                <StyledTableCell isHiddenOnMobile>Espécie</StyledTableCell>
+                <StyledTableCell isHiddenOnMobile>Sexo</StyledTableCell>
+                <StyledTableCell>Adotado(a)</StyledTableCell>
+                <StyledTableCell id="pet-actions">Ações</StyledTableCell>
+              </StyledTableRow>
             </TableHead>
             <TableBody>
               {pets.map((pet) => (
-                <TableRow key={pet.id}>
-                  <PetName>{pet.name}</PetName>
-                  <PetBreed>{pet.breed}</PetBreed>
-                  <PetAge>{pet.age}</PetAge>
-                  <PetSpecies>{pet.species}</PetSpecies>
-                  <PetGender>{pet.gender}</PetGender>
-                  <Adopted>{pet.adopted ? 'Sim' : 'Não'}</Adopted>
-                  <PetActions>
-                    <AdoptPet pet={pet} shouldRefetch={reload} />
-                    <CreateOrUpdatePet id={pet.id} shouldRefetch={reload} />
-                    <DeletePet id={pet.id} shouldRefetch={reload} />
-                  </PetActions>
-                </TableRow>
+                <StyledTableRow key={pet.id}>
+                  <StyledTableCell>{pet.name}</StyledTableCell>
+                  <StyledTableCell isHiddenOnMobile>
+                    {pet.breed}
+                  </StyledTableCell>
+                  <StyledTableCell isHiddenOnMobile>{pet.age}</StyledTableCell>
+                  <StyledTableCell isHiddenOnMobile>
+                    {pet.species}
+                  </StyledTableCell>
+                  <StyledTableCell isHiddenOnMobile>
+                    {pet.gender}
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    {pet.adopted ? 'Sim' : 'Não'}
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <PetActions>
+                      <AdoptPet pet={pet} shouldRefetch={reload} />
+                      <CreateOrUpdatePet id={pet.id} shouldRefetch={reload} />
+                      <DeletePet id={pet.id} shouldRefetch={reload} />
+                    </PetActions>
+                  </StyledTableCell>
+                </StyledTableRow>
               ))}
             </TableBody>
           </StyledTable>
@@ -131,7 +142,14 @@ const StyledContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-content: center;
+  align-items: center;
   padding: 5px;
+  margin: 10px;
+  @media only screen and (min-width: 480px) {
+    padding: 20px;
+    margin: 20px;
+  }
 `
 const CardsContainer = styled.div`
   display: flex;
@@ -143,6 +161,7 @@ const CardsContainer = styled.div`
   @media only screen and (min-width: 480px) {
     flex-direction: row;
     justify-content: space-between;
+    gap: 220px;
   }
 `
 const StyledCard = styled(Card)`
@@ -154,6 +173,10 @@ const StyledCard = styled(Card)`
   box-shadow: 4px 4px 5px 2px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   margin-bottom: 10px;
+  @media only screen and (min-width: 480px) {
+    width: 290px;
+    height: 109px;
+  }
 `
 const StyledCardContent = styled(CardContent)`
   display: flex;
@@ -185,6 +208,10 @@ const StyledTableContainer = styled(TableContainer)`
   border-radius: 10px;
   padding: 15px;
   margin: 20px 10px;
+  @media only screen and (min-width: 480px) {
+    width: 800px;
+    align-items: center;
+  }
 `
 const Title = styled.h3`
   font-style: normal;
@@ -194,90 +221,70 @@ const Title = styled.h3`
   color: #403423;
   margin: 5px;
   justify-self: left;
+  align-self: start;
 `
 const StyledTable = styled(Table)`
-  display: flex;
-  flex-direction: column;
   background: #ffffff;
   border-radius: 10px;
-  width: 310px;
+  border-collapse: unset;
+  overflow: hidden;
 `
-const PetName = styled(TableCell)`
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 14px;
-  color: #000000;
-`
-const PetBreed = styled(TableCell)`
-  display: none;
+const StyledTableCell = styled(TableCell)(
+  ({ theme, isHiddenOnMobile }) => `
+  &.${tableCellClasses.head} {
+    background-color: ${theme.palette.common.white};
+    color: ${theme.palette.common.black};
+  }
+  &.${tableCellClasses.body} {
+    font-size: 12;
+  }
+  display: ${isHiddenOnMobile ? 'none' : 'table-cell'};
+  text-align: center;
   @media only screen and (min-width: 480px) {
-    display: block;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 14px;
-    color: #000000;
+    display: table-cell;
   }
 `
-const PetAge = styled(TableCell)`
-  display: none;
-  @media only screen and (min-width: 480px) {
-    display: block;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 14px;
-    color: #000000;
-  }
-`
-const PetSpecies = styled(TableCell)`
-  display: none;
-  @media only screen and (min-width: 480px) {
-    display: block;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 14px;
-    color: #000000;
-  }
-`
-const PetGender = styled(TableCell)`
-  display: none;
-  @media only screen and (min-width: 480px) {
-    display: block;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 14px;
-    color: #000000;
-  }
-`
-const Adopted = styled(TableCell)`
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 14px;
-  color: #000000;
-`
-const PetActions = styled(TableCell)`
-  display: flex;
-  justify-content: center;
-`
-const StyledTableCell = styled(TableCell)`
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 14px;
-  color: #000000;
-`
+)
+
+const StyledTableRow = styled(TableRow)(
+  ({ theme }) =>
+    console.log(theme) || {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.secondary.light,
+      },
+      '&:last-child td, &:last-child th': {
+        border: 0,
+      },
+    }
+)
+
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
   align-content: space-between;
   margin: 15px 10px;
+  @media only screen and (min-width: 480px) {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 220px;
+  }
 `
 const StyledButton = styled(Button)`
   margin-top: 20px;
+  @media only screen and (min-width: 480px) {
+    margin-top: 0px;
+    width: 290px;
+    height: 35px;
+  }
+`
+const StyledBox = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+`
+const PetActions = styled.div`
+  display: flex;
+  justify-content: center;
 `
 export default Dashboard

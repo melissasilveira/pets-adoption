@@ -6,6 +6,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { IconButton } from '@mui/material'
+import { common } from '@mui/material/colors'
 import { toast } from 'react-toastify'
 
 import { deletePet } from '../services/pets'
@@ -37,7 +38,7 @@ function DeletePet(props) {
   return (
     <div>
       <IconButton aria-label="delete" onClick={handleClickOpen}>
-        <DeleteIcon />
+        <DeleteIcon sx={{ color: common.black }} />
       </IconButton>
       <Dialog
         open={open}

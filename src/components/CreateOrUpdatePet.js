@@ -12,11 +12,13 @@ import {
   Button,
   IconButton,
 } from '@mui/material'
+import { common } from '@mui/material/colors'
 import { registerSchema } from '../schemas/auth'
 import { postPet, editPet, getPet } from '../services/pets'
 import EditIcon from '@mui/icons-material/Edit'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
+import styled from '@emotion/styled'
 
 function CreateOrUpdatePet(props) {
   const [open, setOpen] = useState(false)
@@ -88,12 +90,12 @@ function CreateOrUpdatePet(props) {
     <div>
       {id ? (
         <IconButton aria-label="edit" onClick={handleClickOpen}>
-          <EditIcon />
+          <EditIcon sx={{ color: common.black }} />
         </IconButton>
       ) : (
-        <Button variant="contained" fullWidth onClick={handleClickOpen}>
+        <StyledButton variant="contained" fullWidth onClick={handleClickOpen}>
           ENTRADA DE PET
-        </Button>
+        </StyledButton>
       )}
       <Dialog open={open} onClose={handleClose}>
         <form
@@ -115,6 +117,7 @@ function CreateOrUpdatePet(props) {
                   variant="outlined"
                   label="Nome"
                   color="secondary"
+                  size="small"
                   error={Boolean(errors.name)}
                   helperText={errors.name?.message}
                   {...field}
@@ -131,6 +134,7 @@ function CreateOrUpdatePet(props) {
                   variant="outlined"
                   label="Raça"
                   color="secondary"
+                  size="small"
                   error={Boolean(errors.breed)}
                   helperText={errors.breed?.message}
                   {...field}
@@ -148,6 +152,7 @@ function CreateOrUpdatePet(props) {
                   variant="outlined"
                   label="Idade"
                   color="secondary"
+                  size="small"
                   error={Boolean(errors.age)}
                   helperText={errors.age?.message}
                   {...field}
@@ -204,6 +209,7 @@ function CreateOrUpdatePet(props) {
                   variant="outlined"
                   label="URL da Imagem"
                   color="secondary"
+                  size="small"
                   error={Boolean(errors.URL)}
                   helperText={errors.URL?.message}
                   {...field}
@@ -220,5 +226,13 @@ function CreateOrUpdatePet(props) {
     </div>
   )
 }
+
+const StyledButton = styled(Button)`
+  @media only screen and (min-width: 480px) {
+    margin-top: 0px;
+    width: 290px;
+    height: 35px;
+  }
+`
 
 export default CreateOrUpdatePet
