@@ -6,8 +6,10 @@ function Main() {
     <StyledContainer>
       <StyledHeader>
         <DogsBackground src="/images/background.png" alt="dogs" />
-        <Title>Adote e salve uma vida</Title>
-        <Subtitle>Um gesto de carinho que pode salvar vidas.</Subtitle>
+        <TextBox>
+          <Title>Adote e salve uma vida</Title>
+          <Subtitle>Um gesto de carinho que pode salvar vidas.</Subtitle>
+        </TextBox>
       </StyledHeader>
       <StyledDiv>
         <StyledH3>Por que adotar?</StyledH3>
@@ -51,6 +53,13 @@ function Main() {
 
 const DogsBackground = styled.img`
   display: none;
+  @media only screen and (min-width: 480px) {
+    display: flex;
+    width: 550px;
+    height: 311.49px;
+    left: 95px;
+    top: 90px;
+  }
 `
 const StyledContainer = styled.div`
   background: #ffffff;
@@ -60,6 +69,18 @@ const StyledContainer = styled.div`
 const StyledHeader = styled.div`
   height: 229px;
   background: #040404;
+  @media only screen and (min-width: 480px) {
+    height: 311.49px;
+    display: flex;
+  }
+`
+const TextBox = styled.div`
+  @media only screen and (min-width: 480px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+  }
 `
 const Title = styled.h1`
   font-style: normal;
@@ -70,6 +91,13 @@ const Title = styled.h1`
   color: #e6bc7e;
   margin: 20px 60px;
   margin-bottom: 5px;
+  @media only screen and (min-width: 480px) {
+    font-size: 46px;
+    line-height: 54px;
+    padding-top: 50px;
+    text-align: start;
+    margin: 20px;
+  }
 `
 const Subtitle = styled.h3`
   font-style: normal;
@@ -80,6 +108,13 @@ const Subtitle = styled.h3`
   color: #bf9d69;
   border: 1px solid #040404;
   margin: 0px 60px;
+  @media only screen and (min-width: 480px) {
+    text-align: left;
+    margin: 0px;
+    justify-self: left;
+    margin-right: 30px;
+    padding-right: 80px;
+  }
 `
 const StyledH4 = styled.h4`
   font-style: normal;
