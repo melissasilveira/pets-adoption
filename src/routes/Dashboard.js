@@ -234,9 +234,12 @@ const StyledTableCell = styled(TableCell)(
   &.${tableCellClasses.head} {
     background-color: ${theme.palette.common.white};
     color: ${theme.palette.common.black};
+    font-size: 10;
+    padding: 0px;
   }
   &.${tableCellClasses.body} {
-    font-size: 12;
+    font-size: 10;
+    padding: 0px;
   }
   display: ${isHiddenOnMobile ? 'none' : 'table-cell'};
   text-align: center;
@@ -271,6 +274,8 @@ const ButtonBox = styled.div`
 `
 const StyledButton = styled(Button)`
   margin-top: 20px;
+  width: 340px;
+  height: 35px;
   @media only screen and (min-width: 480px) {
     margin-top: 0px;
     width: 290px;

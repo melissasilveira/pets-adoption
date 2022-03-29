@@ -117,6 +117,7 @@ function CreateOrUpdatePet(props) {
                   variant="outlined"
                   label="Nome"
                   color="secondary"
+                  backgroundColor="secondary.light"
                   size="small"
                   error={Boolean(errors.name)}
                   helperText={errors.name?.message}
@@ -218,8 +219,20 @@ function CreateOrUpdatePet(props) {
             />
           </DialogContent>
           <DialogActions>
-            <Button type="submit">{id ? 'SALVAR' : 'CADASTRAR'}</Button>
-            <Button onClick={handleClose}>CANCELAR</Button>
+            <StyledDialogButton
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              {id ? 'SALVAR' : 'CADASTRAR'}
+            </StyledDialogButton>
+            <StyledDialogButton
+              onClick={handleClose}
+              variant="contained"
+              color="primary"
+            >
+              CANCELAR
+            </StyledDialogButton>
           </DialogActions>
         </form>
       </Dialog>
@@ -228,11 +241,17 @@ function CreateOrUpdatePet(props) {
 }
 
 const StyledButton = styled(Button)`
+  width: 340px;
+  height: 35px;
   @media only screen and (min-width: 480px) {
     margin-top: 0px;
     width: 290px;
     height: 35px;
   }
 `
-
+const StyledDialogButton = styled(Button)`
+  width: 270px;
+  height: 35px;
+  border-radius: 10px;
+`
 export default CreateOrUpdatePet
