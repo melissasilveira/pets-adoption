@@ -6,8 +6,6 @@ import {
   DialogTitle,
   DialogContent,
   TextField,
-  InputLabel,
-  Select,
   MenuItem,
   Button,
   IconButton,
@@ -23,6 +21,8 @@ import styled from '@emotion/styled'
 function CreateOrUpdatePet(props) {
   const [open, setOpen] = useState(false)
   const { id } = props
+  const [petSpecies, setPetSpecies] = useState()
+  const [petGender, setPetGender] = useState()
 
   useEffect(() => {
     const fetchPet = async () => {
@@ -61,6 +61,14 @@ function CreateOrUpdatePet(props) {
     resolver: yupResolver(registerSchema),
   })
 
+  const handleSpeciesChange = (event) => {
+    setPetSpecies(event.target.value)
+  }
+
+  const handleGenderChange = (event) => {
+    setPetGender(event.target.value)
+  }
+
   const handleRegister = async (data) => {
     try {
       console.log(data)
@@ -86,6 +94,27 @@ function CreateOrUpdatePet(props) {
     }
   }
 
+  const petSpeciesOptions = [
+    {
+      value: 'Cachorro',
+      label: 'Cachorro',
+    },
+    {
+      value: 'Gato',
+      label: 'Gato',
+    },
+  ]
+  const petGenderOptions = [
+    {
+      value: 'Macho',
+      label: 'Macho',
+    },
+    {
+      value: 'Fêmea',
+      label: 'Fêmea',
+    },
+  ]
+
   return (
     <div>
       {id ? (
@@ -98,147 +127,204 @@ function CreateOrUpdatePet(props) {
         </StyledButton>
       )}
       <Dialog open={open} onClose={handleClose}>
-        <form
-          onSubmit={
-            id ? handleSubmit(handleUpdate) : handleSubmit(handleRegister)
-          }
-        >
-          <DialogTitle>
-            {id ? 'Editar pet' : 'Cadastro de novo pet'}
-          </DialogTitle>
-          <DialogContent>
-            <Controller
-              name="name"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  margin="dense"
-                  variant="outlined"
-                  label="Nome"
-                  color="secondary"
-                  backgroundColor="secondary.light"
-                  size="small"
-                  error={Boolean(errors.name)}
-                  helperText={errors.name?.message}
-                  {...field}
-                />
-              )}
-            />
-            <Controller
-              name="breed"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  margin="dense"
-                  variant="outlined"
-                  label="Raça"
-                  color="secondary"
-                  size="small"
-                  error={Boolean(errors.breed)}
-                  helperText={errors.breed?.message}
-                  {...field}
-                />
-              )}
-            />
-            <Controller
-              name="age"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                  margin="dense"
-                  variant="outlined"
-                  label="Idade"
-                  color="secondary"
-                  size="small"
-                  error={Boolean(errors.age)}
-                  helperText={errors.age?.message}
-                  {...field}
-                />
-              )}
-            />
-            <Controller
-              name="species"
-              label="Espécie"
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <React.Fragment>
-                  <InputLabel id="species-label">Espécie</InputLabel>
-                  <Select
-                    labelId="species-label"
-                    id="species"
-                    label="Espécie"
-                    {...field}
-                  >
-                    <MenuItem value={'Cachorro'}>Cachorro</MenuItem>
-                    <MenuItem value={'Gato'}>Gato</MenuItem>
-                  </Select>
-                </React.Fragment>
-              )}
-            />
-            <Controller
-              name="gender"
-              label="Sexo"
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <React.Fragment>
-                  <InputLabel id="gender-label">Sexo</InputLabel>
-                  <Select
-                    labelId="gender-label"
-                    id="gender"
-                    label="Sexo"
-                    {...field}
-                  >
-                    <MenuItem value={'Fêmea'}>Fêmea</MenuItem>
-                    <MenuItem value={'Macho'}>Macho</MenuItem>
-                  </Select>
-                </React.Fragment>
-              )}
-            />
-            <Controller
-              name="url"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  margin="dense"
-                  variant="outlined"
-                  label="URL da Imagem"
-                  color="secondary"
-                  size="small"
-                  error={Boolean(errors.URL)}
-                  helperText={errors.URL?.message}
-                  {...field}
-                />
-              )}
-            />
-          </DialogContent>
-          <DialogActions>
-            <StyledDialogButton
-              type="submit"
-              variant="contained"
-              color="primary"
+        <FormBox>
+          <Form
+            onSubmit={
+              id ? handleSubmit(handleUpdate) : handleSubmit(handleRegister)
+            }
+          >
+            <StyledDialogTitle>
+              {id ? 'Editar pet' : 'Cadastro de novo pet'}
+            </StyledDialogTitle>
+            <DialogContent
+              sx={{
+                paddingLeft: 6,
+                paddingTop: 5,
+              }}
             >
-              {id ? 'SALVAR' : 'CADASTRAR'}
-            </StyledDialogButton>
-            <StyledDialogButton
-              onClick={handleClose}
-              variant="contained"
-              color="primary"
-            >
-              CANCELAR
-            </StyledDialogButton>
-          </DialogActions>
-        </form>
+              <Controller
+                name="name"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <TextField
+                    margin="dense"
+                    variant="outlined"
+                    label="Nome"
+                    color="secondary"
+                    backgroundColor="secondary.light"
+                    size="small"
+                    sx={{
+                      width: 210,
+                      marginX: 2,
+                      marginY: 0.5,
+                    }}
+                    error={Boolean(errors.name)}
+                    helperText={errors.name?.message}
+                    {...field}
+                  />
+                )}
+              />
+              <Controller
+                name="breed"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <TextField
+                    margin="dense"
+                    variant="outlined"
+                    label="Raça"
+                    color="secondary"
+                    size="small"
+                    sx={{
+                      width: 210,
+                      marginX: 2,
+                      marginY: 0.5,
+                    }}
+                    error={Boolean(errors.breed)}
+                    helperText={errors.breed?.message}
+                    {...field}
+                  />
+                )}
+              />
+              <Controller
+                name="age"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <TextField
+                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+                    margin="dense"
+                    variant="outlined"
+                    label="Idade"
+                    color="secondary"
+                    size="small"
+                    sx={{
+                      width: 210,
+                      marginX: 2,
+                      marginY: 0.5,
+                    }}
+                    error={Boolean(errors.age)}
+                    helperText={errors.age?.message}
+                    {...field}
+                  />
+                )}
+              />
+              <Controller
+                name="species"
+                margin="dense"
+                variant="outlined"
+                label="Espécie"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <React.Fragment>
+                    <TextField
+                      id="pet-species-select"
+                      select
+                      label="Espécie"
+                      value={petSpecies}
+                      onChange={handleSpeciesChange}
+                      size="small"
+                      sx={{
+                        width: 210,
+                        marginX: 2,
+                        marginY: 0.5,
+                      }}
+                      {...field}
+                    >
+                      {petSpeciesOptions.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </React.Fragment>
+                )}
+              />
+              <Controller
+                name="gender"
+                label="Sexo"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <React.Fragment>
+                    <TextField
+                      margin="dense"
+                      variant="outlined"
+                      id="pet-gender-select"
+                      select
+                      label="Sexo"
+                      value={petGender}
+                      onChange={handleGenderChange}
+                      size="small"
+                      sx={{
+                        width: 210,
+                        marginX: 2,
+                        marginY: 0.5,
+                      }}
+                      {...field}
+                    >
+                      {petGenderOptions.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </React.Fragment>
+                )}
+              />
+              <Controller
+                name="url"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <TextField
+                    margin="dense"
+                    variant="outlined"
+                    label="URL da Imagem"
+                    color="secondary"
+                    size="small"
+                    sx={{
+                      width: 210,
+                      marginX: 2,
+                      marginY: 0.5,
+                    }}
+                    error={Boolean(errors.URL)}
+                    helperText={errors.URL?.message}
+                    {...field}
+                  />
+                )}
+              />
+            </DialogContent>
+            <StyledDialogActions>
+              <StyledDialogButton
+                type="submit"
+                variant="contained"
+                color="primary"
+              >
+                {id ? 'SALVAR' : 'CADASTRAR'}
+              </StyledDialogButton>
+              <StyledDialogButton
+                onClick={handleClose}
+                variant="outlined"
+                color="primary"
+              >
+                CANCELAR
+              </StyledDialogButton>
+            </StyledDialogActions>
+          </Form>
+        </FormBox>
       </Dialog>
     </div>
   )
 }
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`
 
 const StyledButton = styled(Button)`
   width: 340px;
@@ -250,8 +336,31 @@ const StyledButton = styled(Button)`
   }
 `
 const StyledDialogButton = styled(Button)`
-  width: 270px;
+  width: 210px;
   height: 35px;
   border-radius: 10px;
+  margin: 1px 0px 1px 0px;
+  padding: 0px;
+`
+const FormBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  padding: 2px;
+  padding-left: 10px;
+`
+const StyledDialogTitle = styled(DialogTitle)`
+  text-align: center;
+  margin; 2;
+`
+const StyledDialogActions = styled(DialogActions)`
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  @media only screen and (min-width: 480px) {
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
 `
 export default CreateOrUpdatePet

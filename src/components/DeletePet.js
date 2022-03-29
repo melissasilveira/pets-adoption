@@ -51,8 +51,10 @@ function DeletePet(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDelete}>Sim</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button variant="contained" onClick={handleDelete}>
+            Sim
+          </Button>
+          <Button variant="outlined" onClick={handleClose} autoFocus>
             Não
           </Button>
         </DialogActions>

@@ -57,8 +57,10 @@ function AdoptPet(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleAdoption}>Sim</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button variant="contained" onClick={handleAdoption}>
+            Sim
+          </Button>
+          <Button variant="outlined" onClick={handleClose} autoFocus>
             Não
           </Button>
         </DialogActions>
