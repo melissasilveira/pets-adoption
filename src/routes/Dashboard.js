@@ -144,8 +144,6 @@ const StyledContainer = styled(Container)`
   justify-content: center;
   align-content: center;
   align-items: center;
-  padding: 5px;
-  margin: 10px;
   @media only screen and (min-width: 480px) {
     padding: 20px;
     margin: 20px;

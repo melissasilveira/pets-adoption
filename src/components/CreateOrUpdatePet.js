@@ -128,7 +128,7 @@ function CreateOrUpdatePet(props) {
       )}
       <Dialog open={open} onClose={handleClose}>
         <FormBox>
-          <Form
+          <form
             onSubmit={
               id ? handleSubmit(handleUpdate) : handleSubmit(handleRegister)
             }
@@ -136,29 +136,19 @@ function CreateOrUpdatePet(props) {
             <StyledDialogTitle>
               {id ? 'Editar pet' : 'Cadastro de novo pet'}
             </StyledDialogTitle>
-            <DialogContent
-              sx={{
-                paddingLeft: 6,
-                paddingTop: 5,
-              }}
-            >
+            <FormContent>
               <Controller
                 name="name"
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <TextField
+                  <StyledTextField
                     margin="dense"
                     variant="outlined"
                     label="Nome"
                     color="secondary"
                     backgroundColor="secondary.light"
                     size="small"
-                    sx={{
-                      width: 210,
-                      marginX: 2,
-                      marginY: 0.5,
-                    }}
                     error={Boolean(errors.name)}
                     helperText={errors.name?.message}
                     {...field}
@@ -170,17 +160,12 @@ function CreateOrUpdatePet(props) {
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <TextField
+                  <StyledTextField
                     margin="dense"
                     variant="outlined"
                     label="Raça"
                     color="secondary"
                     size="small"
-                    sx={{
-                      width: 210,
-                      marginX: 2,
-                      marginY: 0.5,
-                    }}
                     error={Boolean(errors.breed)}
                     helperText={errors.breed?.message}
                     {...field}
@@ -192,18 +177,13 @@ function CreateOrUpdatePet(props) {
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <TextField
+                  <StyledTextField
                     inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                     margin="dense"
                     variant="outlined"
                     label="Idade"
                     color="secondary"
                     size="small"
-                    sx={{
-                      width: 210,
-                      marginX: 2,
-                      marginY: 0.5,
-                    }}
                     error={Boolean(errors.age)}
                     helperText={errors.age?.message}
                     {...field}
@@ -219,18 +199,13 @@ function CreateOrUpdatePet(props) {
                 rules={{ required: true }}
                 render={({ field }) => (
                   <React.Fragment>
-                    <TextField
+                    <StyledTextField
                       id="pet-species-select"
                       select
                       label="Espécie"
                       value={petSpecies}
                       onChange={handleSpeciesChange}
                       size="small"
-                      sx={{
-                        width: 210,
-                        marginX: 2,
-                        marginY: 0.5,
-                      }}
                       {...field}
                     >
                       {petSpeciesOptions.map((option) => (
@@ -238,7 +213,7 @@ function CreateOrUpdatePet(props) {
                           {option.label}
                         </MenuItem>
                       ))}
-                    </TextField>
+                    </StyledTextField>
                   </React.Fragment>
                 )}
               />
@@ -249,7 +224,7 @@ function CreateOrUpdatePet(props) {
                 rules={{ required: true }}
                 render={({ field }) => (
                   <React.Fragment>
-                    <TextField
+                    <StyledTextField
                       margin="dense"
                       variant="outlined"
                       id="pet-gender-select"
@@ -258,11 +233,6 @@ function CreateOrUpdatePet(props) {
                       value={petGender}
                       onChange={handleGenderChange}
                       size="small"
-                      sx={{
-                        width: 210,
-                        marginX: 2,
-                        marginY: 0.5,
-                      }}
                       {...field}
                     >
                       {petGenderOptions.map((option) => (
@@ -270,7 +240,7 @@ function CreateOrUpdatePet(props) {
                           {option.label}
                         </MenuItem>
                       ))}
-                    </TextField>
+                    </StyledTextField>
                   </React.Fragment>
                 )}
               />
@@ -279,25 +249,20 @@ function CreateOrUpdatePet(props) {
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <TextField
+                  <StyledTextField
                     margin="dense"
                     variant="outlined"
                     label="URL da Imagem"
                     color="secondary"
                     size="small"
-                    sx={{
-                      width: 210,
-                      marginX: 2,
-                      marginY: 0.5,
-                    }}
                     error={Boolean(errors.URL)}
                     helperText={errors.URL?.message}
                     {...field}
                   />
                 )}
               />
-            </DialogContent>
-            <StyledDialogActions>
+            </FormContent>
+            <ButtonBox>
               <StyledDialogButton
                 type="submit"
                 variant="contained"
@@ -312,20 +277,30 @@ function CreateOrUpdatePet(props) {
               >
                 CANCELAR
               </StyledDialogButton>
-            </StyledDialogActions>
-          </Form>
+            </ButtonBox>
+          </form>
         </FormBox>
       </Dialog>
     </div>
   )
 }
 
-const Form = styled.form`
+const StyledTextField = styled(TextField)`
+  width: 210px;
+  padding: 2px;
+  margin: 5px;
+`
+const FormContent = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+  @media only screen and (min-width: 480px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
 `
-
 const StyledButton = styled(Button)`
   width: 340px;
   height: 35px;
@@ -339,7 +314,7 @@ const StyledDialogButton = styled(Button)`
   width: 210px;
   height: 35px;
   border-radius: 10px;
-  margin: 1px 0px 1px 0px;
+  margin: 5px;
   padding: 0px;
 `
 const FormBox = styled.div`
@@ -351,12 +326,11 @@ const FormBox = styled.div`
 `
 const StyledDialogTitle = styled(DialogTitle)`
   text-align: center;
-  margin; 2;
 `
-const StyledDialogActions = styled(DialogActions)`
+const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0;
+  align-items: center;
   padding: 0;
   @media only screen and (min-width: 480px) {
     flex-direction: row;

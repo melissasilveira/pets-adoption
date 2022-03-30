@@ -67,6 +67,7 @@ const StyledContainer = styled.div`
   background: #ffffff;
   display: flex;
   flex-direction: column;
+  padding-top: 70px;
 `
 const StyledHeader = styled.div`
   height: 229px;

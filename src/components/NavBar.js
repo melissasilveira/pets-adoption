@@ -74,30 +74,43 @@ function NavBar() {
     <NavBarBox>
       <StyledDiv>
         <img src="/images/brand-logo (1).png" alt="logo" height="53px" />
-        <img
-          src="/images/Hamburguer.png"
-          alt="hamburger-menu"
-          id="burger-menu"
-          height="29px"
-          onClick={handleMenuOpen}
-        />
-        <img
-          src="/images/Hamburguer-close.png"
-          alt="burger close"
-          id="burger-close"
-          onClick={handleMenuClose}
-        />
+        <button onClick={handleMenuOpen} id="burger-menu">
+          <img
+            src="/images/Hamburguer.png"
+            alt="hamburger-menu"
+            id="burger-menu"
+            height="29px"
+          />
+        </button>
+        <button onClick={handleMenuClose} id="burger-close">
+          <img
+            src="/images/Hamburguer-close.png"
+            alt="burger close"
+            id="burger-close"
+          />
+        </button>
       </StyledDiv>
       <StyledNav id="menu-mobile">
         <StyledUl>
           <li>
-            <StyledButtonLink onClick={handleClickOpen}>LOGIN</StyledButtonLink>
+            <StyledButtonLink
+              onClick={() => {
+                handleClickOpen()
+                handleMenuClose()
+              }}
+            >
+              LOGIN
+            </StyledButtonLink>
           </li>
           <li>
-            <a href="#pet-gallery">GALERIA</a>
+            <a href="#pet-gallery" onClick={handleMenuClose}>
+              GALERIA
+            </a>
           </li>
           <li>
-            <a href="#contact">CONTATO</a>
+            <a href="#contact" onClick={handleMenuClose}>
+              CONTATO
+            </a>
           </li>
         </StyledUl>
       </StyledNav>
@@ -177,6 +190,10 @@ const NavBarBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 
   #burger-close {
     display: none;
