@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  CircularProgress,
 } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
@@ -20,6 +21,7 @@ import { loginSchema } from '../schemas/auth'
 
 function NavBar() {
   const [open, setOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const navigate = useNavigate()
 
@@ -43,6 +45,7 @@ function NavBar() {
 
   const handleLogin = async ({ email, password }) => {
     try {
+      setIsLoading(true)
       await login(email, password)
       toast.success('Login realizado com sucesso!')
       navigate('/dashboard')
@@ -176,7 +179,16 @@ function NavBar() {
           </DialogContent>
           <DialogActions>
             <Button type="submit" variant="contained">
-              ENTRAR
+              {isLoading ? (
+                <CircularProgress
+                  size="20px"
+                  sx={{
+                    color: 'secondary.light',
+                  }}
+                />
+              ) : (
+                'ENTRAR'
+              )}
             </Button>
           </DialogActions>
         </form>
