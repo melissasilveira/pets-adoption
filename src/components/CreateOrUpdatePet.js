@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import {
   Dialog,
-  DialogActions,
   DialogTitle,
-  DialogContent,
   TextField,
   MenuItem,
   Button,
   IconButton,
+  CircularProgress,
 } from '@mui/material'
 import { common } from '@mui/material/colors'
 import { registerSchema } from '../schemas/auth'
@@ -23,6 +22,7 @@ function CreateOrUpdatePet(props) {
   const { id } = props
   const [petSpecies, setPetSpecies] = useState()
   const [petGender, setPetGender] = useState()
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const fetchPet = async () => {
@@ -71,11 +71,15 @@ function CreateOrUpdatePet(props) {
 
   const handleRegister = async (data) => {
     try {
-      console.log(data)
+      setIsLoading(true)
       await postPet(data)
       handleClose()
+      toast.success('Pet cadastrado com sucesso.', {
+        position: toast.POSITION.TOP_CENTER,
+      })
       props.shouldRefetch()
     } catch (error) {
+      toast.error('Ocorreu um erro ao tentar cadastrar o pet.')
       console.log(error)
     }
   }
@@ -268,7 +272,18 @@ function CreateOrUpdatePet(props) {
                 variant="contained"
                 color="primary"
               >
-                {id ? 'SALVAR' : 'CADASTRAR'}
+                {isLoading ? (
+                  <CircularProgress
+                    size="20px"
+                    sx={{
+                      color: 'secondary.light',
+                    }}
+                  />
+                ) : id ? (
+                  'SALVAR'
+                ) : (
+                  'CADASTRAR'
+                )}
               </StyledDialogButton>
               <StyledDialogButton
                 onClick={handleClose}
@@ -322,7 +337,6 @@ const FormBox = styled.div`
   flex-direction: column;
   margin: 5px;
   padding: 2px;
-  padding-left: 10px;
 `
 const StyledDialogTitle = styled(DialogTitle)`
   text-align: center;
@@ -331,7 +345,7 @@ const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0;
+  padding: 16px 24px;
   @media only screen and (min-width: 480px) {
     flex-direction: row;
     justify-content: space-evenly;

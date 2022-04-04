@@ -11,7 +11,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Container,
   Button,
   CircularProgress,
   Box,
@@ -69,7 +68,7 @@ function Dashboard() {
     )
   } else {
     return (
-      <StyledContainer>
+      <StyledDiv>
         <CardsContainer>
           <StyledCard>
             <StyledCardContent>
@@ -133,12 +132,12 @@ function Dashboard() {
             SAIR
           </StyledButton>
         </ButtonBox>
-      </StyledContainer>
+      </StyledDiv>
     )
   }
 }
 
-const StyledContainer = styled(Container)`
+const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

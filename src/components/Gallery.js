@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import { IconButton } from '@mui/material'
 import styled from 'styled-components'
@@ -44,22 +42,25 @@ function Gallery(props) {
           .map(({ id, name, gender, age, url }) => {
             return (
               <StyledCard key={id}>
-                <StyledCardContent>
+                <CardContent>
                   <PetImg src={url} alt="imagem do pet" />
-                  <CardText>
+                  <CardData>
                     <StyledTypography>{name}</StyledTypography>
                     <StyledTypography>{gender}</StyledTypography>
                     <StyledTypography>{`${age} ano(s)`}</StyledTypography>
-                  </CardText>
-                </StyledCardContent>
-                <StyledCardActions>
-                  <IconButton
-                    aria-label="adopt-pet"
-                    onClick={() => adoptPet(name)}
-                  >
-                    <AdoptionImg src="/images/adoption.png" alt="adopt-icon" />
-                  </IconButton>
-                </StyledCardActions>
+                  </CardData>
+                  <CardActions>
+                    <IconButton
+                      aria-label="adopt-pet"
+                      onClick={() => adoptPet(name)}
+                    >
+                      <AdoptionImg
+                        src="/images/adoption.png"
+                        alt="adopt-icon"
+                      />
+                    </IconButton>
+                  </CardActions>
+                </CardContent>
               </StyledCard>
             )
           })}
@@ -79,7 +80,6 @@ const Title = styled.h2`
   font-style: normal;
   font-weight: 700;
   font-size: 36px;
-  line-height: 42px;
   text-align: center;
   color: #333333;
 `
@@ -88,7 +88,6 @@ const Paragraph = styled.p`
   font-style: normal;
   font-weight: 700;
   font-size: 12px;
-  line-height: 13px;
   text-align: center;
   padding: 5px 15px;
   color: #403423;
@@ -112,23 +111,24 @@ const PetImg = styled.img`
 const StyledCard = styled(Card)`
   display: flex;
   width: 340px;
-  height: 180px;
   background: #ffffff;
   box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   margin: 20px;
 `
 
-const StyledCardContent = styled(CardContent)`
+const CardContent = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  flex: 1;
 `
 
-const CardText = styled.div`
+const CardData = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 10px;
+  justify-content: stretch;
+  padding: 10px;
 `
 
 const StyledTypography = styled(Typography)`
@@ -140,14 +140,11 @@ const StyledTypography = styled(Typography)`
   color: #333333;
 `
 
-const StyledCardActions = styled(CardActions)`
+const CardActions = styled.div`
   align-self: flex-end;
   justify-self: flex-end;
 `
-
 const AdoptionImg = styled.img`
-  align-self: flex-end;
-  justify-self: flex-end;
   width: 40px;
   height: 40px;
 `
