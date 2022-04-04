@@ -4,8 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { TextField, Button } from '@mui/material'
 import { toast } from 'react-toastify'
 
-import { contactSchema } from '../schemas/auth'
-import { contactForm } from '../services/pets'
+import { contactSchema } from '../schemas/schemas'
+import { contactForm } from '../services/contact'
 import styled from '@emotion/styled'
 
 function Contact(props) {
@@ -81,6 +81,7 @@ function Contact(props) {
           defaultValue=""
           render={({ field }) => (
             <StyledTextField
+              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
               margin="dense"
               variant="outlined"
               label="Telefone"
@@ -138,9 +139,6 @@ const Form = styled.form`
   align-items: stretch;
   justify-content: flex-start;
   width: 330px;
-  height: 427px;
-  left: 15px;
-  top: 35px;
   background-color: #ffffff;
   border-radius: 10px;
   padding: 25px;

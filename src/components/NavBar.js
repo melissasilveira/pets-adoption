@@ -1,105 +1,54 @@
 import React, { useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { yupResolver } from '@hookform/resolvers/yup'
-import {
-  TextField,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  CircularProgress,
-} from '@mui/material'
-import IconButton from '@mui/material/IconButton'
-import CloseIcon from '@mui/icons-material/Close'
-import { toast } from 'react-toastify'
 import styled from '@emotion/styled'
 
+import Login from './Login'
 import useAuth from '../contexts/AuthContext'
-import { loginSchema } from '../schemas/auth'
 
 function NavBar() {
+  const [menuOpen, setMenuOpen] = useState(false)
   const [open, setOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-
   const navigate = useNavigate()
 
-  const { login } = useAuth()
-
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(loginSchema),
-  })
-
-  const handleLogin = async ({ email, password }) => {
-    try {
-      setIsLoading(true)
-      await login(email, password)
-      toast.success('Login realizado com sucesso!')
-      navigate('/dashboard')
-    } catch (error) {
-      toast.error('Usuário ou senha incorretos.')
-      console.log(error)
-    }
-  }
+  const { isAuthenticated } = useAuth()
 
   const handleMenuOpen = () => {
-    let menuOpen = document.getElementById('menu-mobile')
-    menuOpen.style.display = 'block'
-    let burgerMenu = document.getElementById('burger-menu')
-    burgerMenu.style.display = 'none'
-    let burgerClose = document.getElementById('burger-close')
-    burgerClose.style.display = 'block'
+    setMenuOpen(true)
   }
 
   const handleMenuClose = () => {
-    let menuClose = document.getElementById('menu-mobile')
-    menuClose.style.display = 'none'
-    let burgerMenu = document.getElementById('burger-menu')
-    burgerMenu.style.display = 'block'
-    let burgerClose = document.getElementById('burger-close')
-    burgerClose.style.display = 'none'
+    setMenuOpen(false)
+  }
+
+  const handleClickOpen = () => {
+    isAuthenticated ? navigate('/dashboard') : setOpen(true)
   }
 
   return (
     <NavBarBox>
       <StyledDiv>
         <img src="/images/brand-logo (1).png" alt="logo" height="53px" />
-        <button onClick={handleMenuOpen} id="burger-menu">
-          <img
-            src="/images/Hamburguer.png"
-            alt="hamburger-menu"
-            id="burger-menu"
-            height="29px"
-          />
-        </button>
-        <button onClick={handleMenuClose} id="burger-close">
-          <img
-            src="/images/Hamburguer-close.png"
-            alt="burger close"
-            id="burger-close"
-          />
-        </button>
+        {menuOpen ? (
+          <StyledButton onClick={handleMenuClose}>
+            <img src="/images/Hamburguer-close.png" alt="burger close" />
+          </StyledButton>
+        ) : (
+          <StyledButton onClick={handleMenuOpen}>
+            <img
+              src="/images/Hamburguer.png"
+              alt="hamburger-menu"
+              height="29px"
+            />
+          </StyledButton>
+        )}
       </StyledDiv>
-      <StyledNav id="menu-mobile">
+      <StyledNav isOpen={menuOpen}>
         <StyledUl>
           <li>
             <StyledButtonLink
               onClick={() => {
-                handleClickOpen()
                 handleMenuClose()
+                handleClickOpen()
               }}
             >
               LOGIN
@@ -117,82 +66,7 @@ function NavBar() {
           </li>
         </StyledUl>
       </StyledNav>
-      <Dialog open={open}>
-        <DialogTitle>
-          <IconButton
-            aria-label="close"
-            onClick={handleClose}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <form onSubmit={handleSubmit(handleLogin)}>
-          <DialogContent
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <img src="/images/brand-logo (1).png" alt="logo" width="102px" />
-            <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  margin="dense"
-                  variant="outlined"
-                  s
-                  label="Email"
-                  size="small"
-                  error={Boolean(errors.email)}
-                  helperText={errors.email?.message}
-                  {...field}
-                />
-              )}
-            />
-            <Controller
-              name="password"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <TextField
-                  type="password"
-                  margin="dense"
-                  variant="outlined"
-                  label="Senha"
-                  size="small"
-                  error={Boolean(errors.password)}
-                  helperText={errors.password?.message}
-                  {...field}
-                />
-              )}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button type="submit" variant="contained">
-              {isLoading ? (
-                <CircularProgress
-                  size="20px"
-                  sx={{
-                    color: 'secondary.light',
-                  }}
-                />
-              ) : (
-                'ENTRAR'
-              )}
-            </Button>
-          </DialogActions>
-        </form>
-      </Dialog>
+      <Login open={open} setOpen={setOpen} />
     </NavBarBox>
   )
 }
@@ -207,22 +81,13 @@ const NavBarBox = styled.div`
   left: 0;
   width: 100%;
 
-  #burger-close {
-    display: none;
-  }
-
   @media only screen and (min-width: 480px) {
     flex-direction: row;
     justify-content: space-between;
-
-    #burger-menu {
-      display: none;
-    }
   }
 `
 const StyledNav = styled.nav`
-  display: none;
-
+  display: ${(props) => (props.isOpen ? 'block' : 'none')};
   @media only screen and (min-width: 480px) {
     display: flex;
   }
@@ -285,5 +150,11 @@ const StyledDiv = styled.div`
   align-items: center;
   height: 75px;
   margin: 0px 30px;
+`
+
+const StyledButton = styled.button`
+  @media only screen and (min-width: 480px) {
+    display: none;
+  }
 `
 export default NavBar

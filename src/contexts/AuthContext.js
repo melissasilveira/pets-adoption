@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from 'react'
-import { signin } from '../services/pets'
+import { signin } from '../services/login'
 
 export const AuthContext = createContext()
-export const Provider = (props) => {
+export const AuthProvider = (props) => {
   const userLocalStorage = JSON.parse(localStorage.getItem('user'))
   const [isAuthenticated, setIsAuthenticated] = useState(
     userLocalStorage ? true : false

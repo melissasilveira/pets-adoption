@@ -10,7 +10,7 @@ import {
   CircularProgress,
 } from '@mui/material'
 import { common } from '@mui/material/colors'
-import { registerSchema } from '../schemas/auth'
+import { registerSchema } from '../schemas/schemas'
 import { postPet, editPet, getPet } from '../services/pets'
 import EditIcon from '@mui/icons-material/Edit'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -35,8 +35,10 @@ function CreateOrUpdatePet(props) {
         setValue('gender', data.pet.gender, { shouldValidate: true })
         setValue('url', data.pet.url, { shouldValidate: true })
       } catch (error) {
-        console.log('Ocorreu um erro ao buscar o pet.')
         console.log(error)
+        toast.error('Ocorreu um erro ao buscar os dados do pet.', {
+          position: toast.POSITION.TOP_CENTER,
+        })
       }
     }
     if (id) {
@@ -79,7 +81,9 @@ function CreateOrUpdatePet(props) {
       })
       props.shouldRefetch()
     } catch (error) {
-      toast.error('Ocorreu um erro ao tentar cadastrar o pet.')
+      toast.error('Ocorreu um erro ao tentar cadastrar o pet.', {
+        position: toast.POSITION.TOP_CENTER,
+      })
       console.log(error)
     }
   }

@@ -35,7 +35,6 @@ function Dashboard() {
         setIsLoading(false)
         setPets(data.pets)
         setShouldReload(false)
-        console.log(data.pets)
       } catch {
         console.log('Ocorreu um erro ao buscar a lista de pets')
       }
@@ -56,6 +55,10 @@ function Dashboard() {
     navigate('/')
   }
 
+  const returnHome = () => {
+    navigate('/')
+  }
+
   const petsAdopted = pets.filter((elem) => {
     return elem.adopted
   })
@@ -68,71 +71,80 @@ function Dashboard() {
     )
   } else {
     return (
-      <StyledDiv>
-        <CardsContainer>
-          <StyledCard>
-            <StyledCardContent>
-              <StyledTypography>Total de Pets</StyledTypography>
-              <StyledNumber>{pets.length}</StyledNumber>
-            </StyledCardContent>
-          </StyledCard>
-          <StyledCard>
-            <StyledCardContent>
-              <StyledTypography>Total de Pets Adotados</StyledTypography>
-              <StyledNumber>{petsAdopted.length}</StyledNumber>
-            </StyledCardContent>
-          </StyledCard>
-        </CardsContainer>
-        <StyledTableContainer>
-          <Title>LISTA DE PET</Title>
-          <StyledTable>
-            <TableHead>
-              <StyledTableRow>
-                <StyledTableCell>Nome</StyledTableCell>
-                <StyledTableCell isHiddenOnMobile>Raça</StyledTableCell>
-                <StyledTableCell isHiddenOnMobile>Idade</StyledTableCell>
-                <StyledTableCell isHiddenOnMobile>Espécie</StyledTableCell>
-                <StyledTableCell isHiddenOnMobile>Sexo</StyledTableCell>
-                <StyledTableCell>Adotado(a)</StyledTableCell>
-                <StyledTableCell id="pet-actions">Ações</StyledTableCell>
-              </StyledTableRow>
-            </TableHead>
-            <TableBody>
-              {pets.map((pet) => (
-                <StyledTableRow key={pet.id}>
-                  <StyledTableCell>{pet.name}</StyledTableCell>
-                  <StyledTableCell isHiddenOnMobile>
-                    {pet.breed}
-                  </StyledTableCell>
-                  <StyledTableCell isHiddenOnMobile>{pet.age}</StyledTableCell>
-                  <StyledTableCell isHiddenOnMobile>
-                    {pet.species}
-                  </StyledTableCell>
-                  <StyledTableCell isHiddenOnMobile>
-                    {pet.gender}
-                  </StyledTableCell>
-                  <StyledTableCell>
-                    {pet.adopted ? 'Sim' : 'Não'}
-                  </StyledTableCell>
-                  <StyledTableCell>
-                    <PetActions>
-                      <AdoptPet pet={pet} shouldRefetch={reload} />
-                      <CreateOrUpdatePet id={pet.id} shouldRefetch={reload} />
-                      <DeletePet id={pet.id} shouldRefetch={reload} />
-                    </PetActions>
-                  </StyledTableCell>
+      <React.Fragment>
+        <HomeButton>
+          <Button variant="outlined" onClick={returnHome}>
+            HOME
+          </Button>
+        </HomeButton>
+        <StyledDiv>
+          <CardsContainer>
+            <StyledCard>
+              <StyledCardContent>
+                <StyledTypography>Total de Pets</StyledTypography>
+                <StyledNumber>{pets.length}</StyledNumber>
+              </StyledCardContent>
+            </StyledCard>
+            <StyledCard>
+              <StyledCardContent>
+                <StyledTypography>Total de Pets Adotados</StyledTypography>
+                <StyledNumber>{petsAdopted.length}</StyledNumber>
+              </StyledCardContent>
+            </StyledCard>
+          </CardsContainer>
+          <StyledTableContainer>
+            <Title>LISTA DE PET</Title>
+            <StyledTable>
+              <TableHead>
+                <StyledTableRow>
+                  <StyledTableCell>Nome</StyledTableCell>
+                  <StyledTableCell isHiddenOnMobile>Raça</StyledTableCell>
+                  <StyledTableCell isHiddenOnMobile>Idade</StyledTableCell>
+                  <StyledTableCell isHiddenOnMobile>Espécie</StyledTableCell>
+                  <StyledTableCell isHiddenOnMobile>Sexo</StyledTableCell>
+                  <StyledTableCell>Adotado(a)</StyledTableCell>
+                  <StyledTableCell id="pet-actions">Ações</StyledTableCell>
                 </StyledTableRow>
-              ))}
-            </TableBody>
-          </StyledTable>
-        </StyledTableContainer>
-        <ButtonBox>
-          <CreateOrUpdatePet shouldRefetch={reload} />
-          <StyledButton variant="contained" onClick={handleLogout}>
-            SAIR
-          </StyledButton>
-        </ButtonBox>
-      </StyledDiv>
+              </TableHead>
+              <TableBody>
+                {pets.map((pet) => (
+                  <StyledTableRow key={pet.id}>
+                    <StyledTableCell>{pet.name}</StyledTableCell>
+                    <StyledTableCell isHiddenOnMobile>
+                      {pet.breed}
+                    </StyledTableCell>
+                    <StyledTableCell isHiddenOnMobile>
+                      {pet.age}
+                    </StyledTableCell>
+                    <StyledTableCell isHiddenOnMobile>
+                      {pet.species}
+                    </StyledTableCell>
+                    <StyledTableCell isHiddenOnMobile>
+                      {pet.gender}
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      {pet.adopted ? 'Sim' : 'Não'}
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      <PetActions>
+                        <AdoptPet pet={pet} shouldRefetch={reload} />
+                        <CreateOrUpdatePet id={pet.id} shouldRefetch={reload} />
+                        <DeletePet id={pet.id} shouldRefetch={reload} />
+                      </PetActions>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </StyledTable>
+          </StyledTableContainer>
+          <ButtonBox>
+            <CreateOrUpdatePet shouldRefetch={reload} />
+            <StyledButton variant="contained" onClick={handleLogout}>
+              SAIR
+            </StyledButton>
+          </ButtonBox>
+        </StyledDiv>
+      </React.Fragment>
     )
   }
 }
@@ -246,17 +258,14 @@ const StyledTableCell = styled(TableCell)(
 `
 )
 
-const StyledTableRow = styled(TableRow)(
-  ({ theme }) =>
-    console.log(theme) || {
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.secondary.light,
-      },
-      '&:last-child td, &:last-child th': {
-        border: 0,
-      },
-    }
-)
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.secondary.light,
+  },
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}))
 
 const ButtonBox = styled.div`
   display: flex;
@@ -289,4 +298,10 @@ const PetActions = styled.div`
   display: flex;
   justify-content: center;
 `
+const HomeButton = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+`
+
 export default Dashboard

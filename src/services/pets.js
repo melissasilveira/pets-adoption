@@ -2,10 +2,6 @@ import client from '../provider/client'
 
 const apiCode = '0m6h415'
 
-export const signin = (body) => {
-  return client.post('/login/authenticate', body)
-}
-
 export const getPetList = () => {
   return client.get(`/pets/${apiCode}`)
 }
@@ -24,8 +20,4 @@ export const postPet = (data) => {
 
 export const deletePet = (id) => {
   return client.delete(`/pets/${apiCode}/${id}`)
-}
-
-export const contactForm = (data) => {
-  return client.post('/contact/', data)
 }

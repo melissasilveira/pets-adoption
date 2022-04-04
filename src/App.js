@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Dashboard from './routes/Dashboard'
 import Home from './routes/Home'
 import PrivateRoute from './components/PrivateRoute'
-import { Provider } from './contexts/AuthContext'
+import { AuthProvider } from './contexts/AuthContext'
 import { ToastContainer } from 'react-toastify'
 import { ThemeProvider, createTheme } from '@mui/material'
 import 'react-toastify/dist/ReactToastify.css'
@@ -27,7 +27,7 @@ const theme = createTheme({
 
 function App() {
   return (
-    <Provider>
+    <AuthProvider>
       <ThemeProvider theme={theme}>
         <ToastContainer />
         <Routes>
@@ -42,7 +42,7 @@ function App() {
           />
         </Routes>
       </ThemeProvider>
-    </Provider>
+    </AuthProvider>
   )
 }
 
